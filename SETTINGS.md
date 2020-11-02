@@ -11,9 +11,9 @@ Connect and configure this integration:
 1.  **Report missing dependencies**
 
     This skill can find missing dependencies in your project by scanning known
-    source code. Enable this if you want to get notifications and fixes of missing
-    dependencies.
-    
+    source code. Enable this if you want to get notifications and fixes of
+    missing dependencies.
+
 1.  **Ignore binary packages**
 
     Ignore npm packages that have `bin` entries or binaries. These are often
@@ -24,7 +24,7 @@ Connect and configure this integration:
     Configure any npm package that should not get reported or fixed.
 
 1.  **Exclude specific files**
-                                          
+
     Use this parameter to exclude specific files from scanning.
 
 1.  **Path to config file**
@@ -35,8 +35,8 @@ Connect and configure this integration:
 
 1.  **Specify how to fix unused or missing dependencies**
 
-    Choose which how and when to fix unused or missing dependencies. The following options
-    are available:
+    Choose which how and when to fix unused or missing dependencies. The
+    following options are available:
 
     -   **Raise pull request for default branch; commit to other branches** -
         with this option, fixes on the default branch will be submitted via a
@@ -56,8 +56,8 @@ Connect and configure this integration:
 
     Pull requests that get raised by this skill will automatically have a
     reviewer assigned based on the person who pushed code. Pull requests that
-    are not needed any longer, i.e., because all dependencies were
-    fixed manually, are closed automatically.
+    are not needed any longer, i.e., because all dependencies were fixed
+    manually, are closed automatically.
 
 1.  **Configure pull request labels**
 
@@ -77,7 +77,7 @@ Connect and configure this integration:
     To restrict the organizations or specific repositories on which the skill
     will run, you can explicitly choose organizations and repositories.
 
-1. **Activate the skill**
+1.  **Activate the skill**
 
     Save your configuration and activate the skill by clicking the "Enable
     skill" button.
