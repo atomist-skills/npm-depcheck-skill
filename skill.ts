@@ -32,6 +32,8 @@ export const Skill = skill<DepCheckConfiguration & { repos: any }>({
 	author: "Atomist",
 	categories: [Category.CodeMaintenance, Category.Security],
 	license: "Apache-2.0",
+	iconUrl:
+		"https://raw.githubusercontent.com/atomist-skills/npm-depcheck-skill/main/docs/images/icon.jpeg",
 
 	containers: {
 		npm: {
