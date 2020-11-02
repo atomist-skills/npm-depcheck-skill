@@ -1,7 +1,7 @@
 The npm Dependency Checker skill ensures that all the dependencies you have
-declared in your project's `package.json` are actually being used in your 
-project. Additionally, the skill will find dependencies that are used in 
-your code but are not declared as project dependency.
+declared in your project's `package.json` are actually being used in your
+project. Additionally, the skill will find dependencies that are used in your
+code but are not declared as project dependency.
 
 The skill uses `depcheck` to scan your repository for unused and missing
 dependencies.
