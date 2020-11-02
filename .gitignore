@@ -17,6 +17,5 @@ node_modules/
 /doc/
 /log/
 git-info.json
-/lib/typings/types.ts
 .atomist
-/test/
+/test/event.test.ts
