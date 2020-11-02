@@ -26,8 +26,8 @@ import {
 	project,
 } from "@atomist/skill";
 import * as fs from "fs-extra";
-import { DepCheckConfiguration } from "./configuration";
 import * as _ from "lodash";
+import { DepCheckConfiguration } from "./configuration";
 
 interface DepCheckReport {
 	dependencies: string[];
