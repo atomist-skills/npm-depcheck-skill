@@ -90,6 +90,13 @@ export const Skill = skill<DepCheckConfiguration & { repos: any }>({
 			required: false,
 			visibility: ParameterVisibility.Advanced,
 		},
+		testGlobs: {
+			type: ParameterType.StringArray,
+			displayName: "Test files",
+			description: "Glob patterns to identify test resources",
+			required: false,
+			visibility: ParameterVisibility.Advanced,
+		},
 		push: parameter.pushStrategy({
 			displayName: "Fix dependencies",
 			description:

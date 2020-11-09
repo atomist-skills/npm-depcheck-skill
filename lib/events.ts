@@ -56,7 +56,7 @@ export const onPush: EventHandler<
 			apiUrl: repo.org.provider.apiUrl,
 		}),
 	);
-	const project = await ctx.project.clone(
+	const p = await ctx.project.clone(
 		repository.gitHub({
 			owner: repo.owner,
 			repo: repo.name,
@@ -66,12 +66,12 @@ export const onPush: EventHandler<
 	);
 
 	// Check if project has package.json
-	if (!(await fs.pathExists(project.path("package.json")))) {
+	if (!(await fs.pathExists(p.path("package.json")))) {
 		return status.success("Ignore non-npm project").hidden().abort();
 	}
 
 	// Create GitHub check
-	const check = await github.createCheck(ctx, project.id, {
+	const check = await github.createCheck(ctx, p.id, {
 		sha: push.after.sha,
 		name: ctx.skill.name,
 		title: "depcheck",
@@ -81,14 +81,14 @@ export const onPush: EventHandler<
 	// Run npm install
 	let result;
 	const opts = { env: { ...process.env, NODE_ENV: "development" } };
-	if (await fs.pathExists(project.path("package-lock.json"))) {
-		result = await project.spawn(
+	if (await fs.pathExists(p.path("package-lock.json"))) {
+		result = await p.spawn(
 			"npm",
 			["ci", "--ignore-scripts", "--no-audit", "--no-fund"],
 			opts,
 		);
 	} else {
-		result = await project.spawn(
+		result = await p.spawn(
 			"npm",
 			["install", "--ignore-scripts", "--no-audit", "--no-fund"],
 			opts,
@@ -113,19 +113,27 @@ export const onPush: EventHandler<
 	if (cfg.ignorePatterns?.length > 0) {
 		args.push(`--ignore-patterns=${cfg.ignorePatterns.join(",")}`);
 	}
-	if (cfg.config && (await fs.pathExists(project.path(cfg.config)))) {
-		args.push(`--config=${project.path(cfg.config)}`);
+	if (cfg.config && (await fs.pathExists(p.path(cfg.config)))) {
+		args.push(`--config=${p.path(cfg.config)}`);
 	}
 
 	const captureLog = childProcess.captureLog();
-	result = await project.spawn("depcheck", [".", ...args, "--json"], {
+	result = await p.spawn("depcheck", [".", ...args, "--json"], {
 		log: captureLog,
 		logCommand: false,
 	});
 
 	if (result.status !== 0) {
 		const report: DepCheckReport = JSON.parse(sliceReport(captureLog.log));
-		const missingPackages = _.map(report.missing, (v, k) => k);
+		const devFiles = (
+			await project.globFiles(p, cfg.testGlobs || [])
+		).map(f => p.path(f));
+		const missingPackages = _.map(report.missing, (v, k) => {
+			return {
+				name: k,
+				isDev: !v.some(f => !devFiles.includes(f)),
+			};
+		});
 
 		const depcount =
 			report.devDependencies.length +
@@ -164,7 +172,7 @@ export const onPush: EventHandler<
 			actions.push(`install ${missingPackages.length} missing`);
 			const mapped = mapCommitMessageAndPrBody(
 				"Missing ",
-				missingPackages,
+				missingPackages.map(mp => mp.name),
 			);
 			prBody = `${prBody}${mapped.prBody}`;
 			commitMessage = `${commitMessage}${mapped.commitMessage}`;
@@ -173,7 +181,7 @@ export const onPush: EventHandler<
 		// Update status
 		await check.update({
 			conclusion: "neutral",
-			annotations: await mapDepCheckReportToAnnotations(report, project),
+			annotations: await mapDepCheckReportToAnnotations(report, p),
 			body: `\`depcheck\` found unused or missing dependencies
 
 \`$ depcheck . ${args.join(" ")}\`
@@ -189,7 +197,7 @@ ${prBody.trim()}`,
 				report.dependencies?.length > 0 ||
 				report.devDependencies?.length > 0
 			)
-				await project.spawn("npm", [
+				await p.spawn("npm", [
 					"uninstall",
 					...(report.dependencies || []),
 					...(report.devDependencies || []),
@@ -197,13 +205,27 @@ ${prBody.trim()}`,
 					"--no-audit",
 					"--no-fund",
 				]);
-			if (missingPackages.length > 0) {
-				await project.spawn("npm", [
+			if (missingPackages.filter(mp => !mp.isDev).length > 0) {
+				await p.spawn("npm", [
 					"install",
-					...missingPackages,
+					...missingPackages
+						.filter(mp => !mp.isDev)
+						.map(mp => mp.name),
 					"--ignore-scripts",
 					"--no-audit",
 					"--no-fund",
+				]);
+			}
+			if (missingPackages.filter(mp => mp.isDev).length > 0) {
+				await p.spawn("npm", [
+					"install",
+					...missingPackages
+						.filter(mp => mp.isDev)
+						.map(mp => mp.name),
+					"--ignore-scripts",
+					"--no-audit",
+					"--no-fund",
+					"--save-dev",
 				]);
 			}
 			const message = `This pull request updates \`package.json\` to ${actions.join(
@@ -219,7 +241,7 @@ ${prBody.trim()}`,
 			// Push changes
 			await github.persistChanges(
 				ctx,
-				project,
+				p,
 				cfg.push,
 				{
 					branch: push.branch,

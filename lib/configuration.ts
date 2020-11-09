@@ -24,4 +24,5 @@ export interface DepCheckConfiguration {
 	config?: string;
 	push?: "none" & parameter.PushStrategy;
 	labels?: string[];
+	testGlobs?: string[];
 }
