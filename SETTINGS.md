@@ -27,12 +27,6 @@ Connect and configure this integration:
 
     Use this parameter to exclude specific files from scanning.
 
-1.  **Path to config file**
-
-    `depcheck` can be configured to use a project specific configuration file.
-    If this parameter is set and the configured configuration file exists in
-    your project, it will be passed to `depcheck`.
-
 1.  **Specify how to fix unused or missing dependencies**
 
     Choose which how and when to fix unused or missing dependencies. The
@@ -76,6 +70,18 @@ Connect and configure this integration:
 
     To restrict the organizations or specific repositories on which the skill
     will run, you can explicitly choose organizations and repositories.
+
+1.  **Path to config file**
+
+    `depcheck` can be configured to use a project specific configuration file.
+    If this parameter is set and the configured configuration file exists in
+    your project, it will be passed to `depcheck`.
+
+1.  **Configure test resources**
+
+    In order to determine if a missing dependency should be installed as development
+    dependency, you can use this parameter to configure glob patterns that match your
+    development source files.
 
 1.  **Activate the skill**
 
