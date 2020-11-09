@@ -134,7 +134,6 @@ export const onPush: EventHandler<
 		let prBody = "";
 		let commitMessage = "";
 		const actions = [];
-
 		if (
 			report.dependencies.length > 0 ||
 			report.devDependencies.length > 0
@@ -211,6 +210,12 @@ ${prBody.trim()}`,
 				" and ",
 			)} ${depcount === 1 ? "dependency" : "dependencies"}`;
 
+			const title = _.upperFirst(
+				`${actions.join(", ")} npm ${
+					depcount === 1 ? "dependency" : "dependencies"
+				}`,
+			);
+
 			// Push changes
 			await github.persistChanges(
 				ctx,
@@ -228,17 +233,13 @@ ${prBody.trim()}`,
 				{
 					branch: `atomist/depcheck-${push.branch}`,
 					labels: cfg.labels,
-					title: `Update ${depcount} ${
-						depcount === 1 ? "dependency" : "dependencies"
-					}`,
+					title,
 					body: `${message}
 					
 ${prBody.trim()}`,
 				},
 				{
-					message: `Update ${depcount} ${
-						depcount === 1 ? "dependency" : "dependencies"
-					}\n\n${commitMessage.trim()}\n\n[atomist:generated]\n[atomist-skill:${
+					message: `${title}\n\n${commitMessage.trim()}\n\n[atomist:generated]\n[atomist-skill:${
 						ctx.skill.namespace
 					}/${ctx.skill.name}]`,
 				},
