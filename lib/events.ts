@@ -151,22 +151,12 @@ export const onPush: EventHandler<
 					report.devDependencies.length + report.dependencies.length
 				} unused`,
 			);
-			if (report.dependencies.length > 0) {
-				const mapped = mapCommitMessageAndPrBody(
-					"Unused ",
-					report.dependencies,
-				);
-				prBody = `${prBody}${mapped.prBody}`;
-				commitMessage = `${commitMessage}${mapped.commitMessage}`;
-			}
-			if (report.devDependencies.length > 0) {
-				const mapped = mapCommitMessageAndPrBody(
-					"Unused Development ",
-					report.devDependencies,
-				);
-				prBody = `${prBody}${mapped.prBody}`;
-				commitMessage = `${commitMessage}${mapped.commitMessage}`;
-			}
+			const mapped = mapCommitMessageAndPrBody("Unused ", [
+				...(report.dependencies || []),
+				...(report.devDependencies || []),
+			]);
+			prBody = `${prBody}${mapped.prBody}`;
+			commitMessage = `${commitMessage}${mapped.commitMessage}`;
 		}
 		if (missingPackages.length > 0) {
 			actions.push(`install ${missingPackages.length} missing`);
