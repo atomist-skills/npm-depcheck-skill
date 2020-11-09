@@ -79,9 +79,9 @@ Connect and configure this integration:
 
 1.  **Configure test resources**
 
-    In order to determine if a missing dependency should be installed as development
-    dependency, you can use this parameter to configure glob patterns that match your
-    development source files.
+    In order to determine if a missing dependency should be installed as
+    development dependency, you can use this parameter to configure glob
+    patterns that match your development source files.
 
 1.  **Activate the skill**
 
