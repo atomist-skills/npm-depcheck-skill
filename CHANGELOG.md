@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist-skills/npm-depcheck-skill/compare/0.1.0...HEAD)
 
+### Fixed
+
+-   Close potentially open PRs if not needed any longer. [fcbd524](https://github.com/atomist-skills/npm-depcheck-skill/commit/fcbd52423a6ff66583e156ddd7c95d8406a35201)
+
 ## [0.1.0](https://github.com/atomist-skills/npm-depcheck-skill/tree/0.1.0) - 2020-11-09
 
 ### Added
