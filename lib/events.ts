@@ -262,6 +262,15 @@ ${prBody.trim()}`,
 			`\`depcheck\` found unused or missing dependencies on [${repo.owner}/${repo.name}](${repo.url})`,
 		);
 	} else {
+		// Close potentially open PRs
+		await github.closePullRequests(
+			ctx,
+			p,
+			push.branch,
+			`atomist/depcheck-${push.branch}`,
+			"Closing pull request because all dependencies have been fixed in base branch",
+		);
+
 		// Update status
 		await check.update({
 			conclusion: "success",
