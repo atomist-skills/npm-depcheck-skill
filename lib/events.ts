@@ -101,20 +101,21 @@ export const onPush: EventHandler<
 
 	// Run depcheck
 	const args = [];
-	if (cfg.ignoreBin) {
-		args.push("--ignore-bin-package=true");
-	}
-	if (cfg.skipMissing) {
-		args.push("--skip-missing=true");
-	}
-	if (cfg.ignores?.length > 0) {
-		args.push(`--ignores=${cfg.ignores.join(",")}`);
-	}
-	if (cfg.ignorePatterns?.length > 0) {
-		args.push(`--ignore-patterns=${cfg.ignorePatterns.join(",")}`);
-	}
 	if (cfg.config && (await fs.pathExists(p.path(cfg.config)))) {
 		args.push(`--config=${p.path(cfg.config)}`);
+	} else {
+		if (cfg.ignoreBin) {
+			args.push("--ignore-bin-package=true");
+		}
+		if (cfg.skipMissing) {
+			args.push("--skip-missing=true");
+		}
+		if (cfg.ignores?.length > 0) {
+			args.push(`--ignores=${cfg.ignores.join(",")}`);
+		}
+		if (cfg.ignorePatterns?.length > 0) {
+			args.push(`--ignore-patterns=${cfg.ignorePatterns.join(",")}`);
+		}
 	}
 
 	const captureLog = childProcess.captureLog();
