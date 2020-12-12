@@ -15,18 +15,19 @@
  */
 
 import {
+	childProcess,
 	EventHandler,
-	subscription,
-	status,
+	github,
+	project,
 	repository,
 	secret,
-	github,
-	childProcess,
 	slack,
-	project,
+	status,
+	subscription,
 } from "@atomist/skill";
 import * as fs from "fs-extra";
 import * as _ from "lodash";
+
 import { DepCheckConfiguration } from "./configuration";
 
 interface DepCheckReport {

@@ -22,6 +22,7 @@ import {
 	resourceProvider,
 	skill,
 } from "@atomist/skill";
+
 import { DepCheckConfiguration } from "./lib/configuration";
 
 export const Skill = skill<DepCheckConfiguration & { repos: any }>({
