@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist-skills/npm-depcheck-skill/compare/0.1.1...HEAD)
 
+### Changed
+
+-   **BREAKING** Configuration parameter changes. [#57](https://github.com/atomist-skills/npm-depcheck-skill/issues/57)
+
 ## [0.1.1](https://github.com/atomist-skills/npm-depcheck-skill/compare/0.1.0...0.1.1) - 2020-11-13
 
 ### Fixed
