@@ -61,7 +61,7 @@ export const Skill = skill<DepCheckConfiguration & { repos: any }>({
 			type: ParameterType.Boolean,
 			displayName: "Skip missing",
 			description:
-				"indicate if `depcheck` should skip calculation of missing dependencies",
+				"Indicate if `depcheck` should skip calculation of missing dependencies",
 			required: false,
 		},
 		ignoreBin: {
@@ -86,8 +86,8 @@ export const Skill = skill<DepCheckConfiguration & { repos: any }>({
 		},
 		config: {
 			type: ParameterType.String,
-			displayName: "Config file",
-			description: "Path to config file in repository",
+			displayName: "Configuration file",
+			description: "Path to configuration file in repository",
 			required: false,
 			visibility: ParameterVisibility.Advanced,
 		},
