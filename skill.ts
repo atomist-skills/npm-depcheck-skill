@@ -57,19 +57,21 @@ export const Skill = skill<DepCheckConfiguration & { repos: any }>({
 	},
 
 	parameters: {
-		skipMissing: {
+		scanMissing: {
 			type: ParameterType.Boolean,
-			displayName: "Skip missing",
+			displayName: "Scan missing dependencies",
 			description:
-				"Indicate if `depcheck` should skip calculation of missing dependencies",
+				"Indicate if `depcheck` should scan for missing dependencies",
 			required: false,
+			defaultValue: true,
 		},
-		ignoreBin: {
+		scanBin: {
 			type: ParameterType.Boolean,
-			displayName: "Ignore bin packages",
+			displayName: "Scan bin packages",
 			description:
-				"Indicate if `depcheck` ignores packages containing bin entries",
+				"Indicate if `depcheck` should scan packages containing bin entries",
 			required: false,
+			defaultValue: true,
 		},
 		ignores: {
 			type: ParameterType.StringArray,
@@ -108,6 +110,7 @@ export const Skill = skill<DepCheckConfiguration & { repos: any }>({
 					value: "none",
 				},
 			],
+			required: true,
 		}),
 		labels: {
 			type: ParameterType.StringArray,

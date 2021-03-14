@@ -105,10 +105,10 @@ export const onPush: EventHandler<
 	if (cfg.config && (await fs.pathExists(p.path(cfg.config)))) {
 		args.push(`--config=${p.path(cfg.config)}`);
 	} else {
-		if (cfg.ignoreBin) {
+		if (!cfg.scanBin) {
 			args.push("--ignore-bin-package=true");
 		}
-		if (cfg.skipMissing) {
+		if (!cfg.scanMissing) {
 			args.push("--skip-missing=true");
 		}
 		if (cfg.ignores?.length > 0) {

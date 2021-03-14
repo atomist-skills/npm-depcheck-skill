@@ -17,8 +17,8 @@
 import { parameter } from "@atomist/skill";
 
 export interface DepCheckConfiguration {
-	ignoreBin?: boolean;
-	skipMissing?: boolean;
+	scanMissing?: boolean;
+	scanBin?: boolean;
 	ignores?: string[];
 	ignorePatterns?: string[];
 	config?: string;
