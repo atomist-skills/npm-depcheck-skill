@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 -   **BREAKING** Configuration parameter changes. [#57](https://github.com/atomist-skills/npm-depcheck-skill/issues/57)
+-   Update skill icon with new design. [a42bf79](https://github.com/atomist-skills/npm-depcheck-skill/commit/a42bf79ddc8114b92ae2978d5bd4b798058a617a)
 
 ## [0.1.1](https://github.com/atomist-skills/npm-depcheck-skill/compare/0.1.0...0.1.1) - 2020-11-13
 
