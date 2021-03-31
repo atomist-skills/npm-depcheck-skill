@@ -9,7 +9,7 @@ RUN npm ci --no-optional && \
     npm run compile && \
     rm -rf node_modules .git
 
-FROM atomist/skill:node14@sha256:c3489ac29613c624f83a2d79a3827c959e52e3ca2de3520a095212c9f88ad268
+FROM atomist/skill:node14@sha256:989a55d6c49d60d6a889157af3c00b8c93f185f1469c14e6bb1bcdc7e0578005
 
 WORKDIR "/skill"
 
