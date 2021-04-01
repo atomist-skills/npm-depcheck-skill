@@ -31,7 +31,7 @@ export const Skill = skill<DepCheckConfiguration & { repos: any }>({
 	description: "Find unused or missing dependencies in your JavaScript code",
 	displayName: "npm Dependency Checker",
 	author: "Atomist",
-	categories: [Category.CodeMaintenance, Category.Security],
+	categories: [Category.CodeMaintenance, Category.DevSecOps],
 	license: "Apache-2.0",
 	iconUrl:
 		"https://raw.githubusercontent.com/atomist-skills/npm-depcheck-skill/main/docs/images/icon.svg",
