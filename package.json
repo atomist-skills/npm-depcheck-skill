@@ -46,7 +46,7 @@
     "typedoc": "npm run doc"
   },
   "dependencies": {
-    "@atomist/skill": "^0.9.1-main.170",
+    "@atomist/skill": "^0.9.1",
     "@types/fs-extra": "^9.0.9",
     "fs-extra": "^9.1.0",
     "lodash": "^4.17.21"
