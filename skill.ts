@@ -59,51 +59,54 @@ export const Skill = skill<DepCheckConfiguration & { repos: any }>({
 	parameters: {
 		scanMissing: {
 			type: ParameterType.Boolean,
-			displayName: "Scan missing dependencies",
+			displayName: "Missing dependencies",
 			description:
-				"Indicate if `depcheck` should scan for missing dependencies",
+				"Select to scan the source code for missing dependencies.",
 			required: false,
 			defaultValue: true,
 		},
 		scanBin: {
 			type: ParameterType.Boolean,
-			displayName: "Scan bin packages",
+			displayName: "Bin packages",
 			description:
-				"Indicate if `depcheck` should scan packages containing bin entries",
+				"Select to include packages containing [bin entries](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#bin).",
 			required: false,
 			defaultValue: true,
 		},
 		ignores: {
 			type: ParameterType.StringArray,
-			displayName: "Ignore packages",
+			displayName: "Packages to ignore",
 			description:
-				"Specify package names to ignore (can be glob expressions)",
+				"Enter the npm package names you want to ignore as glob expressions.",
 			required: false,
 		},
 		ignorePatterns: {
 			type: ParameterType.StringArray,
-			displayName: "Ignore paths",
-			description: "Specify files to ignore (can be glob expressions)",
+			displayName: "Files to ignore",
+			description:
+				"Enter the file names you want to ignore as glob expressions.",
 			required: false,
 		},
 		config: {
 			type: ParameterType.String,
 			displayName: "Configuration file",
-			description: "Path to configuration file in repository",
+			description:
+				"Enter a configuration file name to specify custom overrides.",
 			required: false,
 			visibility: ParameterVisibility.Advanced,
 		},
 		testGlobs: {
 			type: ParameterType.StringArray,
 			displayName: "Test files",
-			description: "Glob patterns to identify test resources",
+			description:
+				"Enter the file names in the selected repositories of your unit tests as glob expressions.",
 			required: false,
 			visibility: ParameterVisibility.Advanced,
 		},
 		push: parameter.pushStrategy({
-			displayName: "Fix dependencies",
+			displayName: "Dependency fixes",
 			description:
-				"Run `depcheck` and add used and remove unused dependencies",
+				"Select how and when fixes should be committed back into the repository.",
 			options: [
 				{
 					text: "Do not fix dependencies",
@@ -116,7 +119,7 @@ export const Skill = skill<DepCheckConfiguration & { repos: any }>({
 			type: ParameterType.StringArray,
 			displayName: "Pull request labels",
 			description:
-				"Add additional labels to pull requests raised by this skill, e.g. to configure the [auto-merge](https://go.atomist.com/catalog/skills/atomist/github-auto-merge-skill) behavior.",
+				"Add additional labels to pull requests raised by this skill.",
 			required: false,
 		},
 		repos: parameter.repoFilter(),

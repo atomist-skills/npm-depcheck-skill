@@ -1,0 +1,48 @@
+# Copyright © 2021 Atomist, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+parameter_groups:
+  - name: whatToScan
+    display_name: What to scan
+  - name: fix
+    display_name: Fix strategy
+  - name: advanced
+    display_name: Advanced
+
+parameters:
+  - name: scanMissing
+    group: whatToScan
+  - name: scanBin
+    group: whatToScan
+  - name: ignores
+    group: whatToScan
+  - name: ignorePatterns
+    group: whatToScan
+  - name: repos
+    group: whatToScan
+  - name: push
+    group: fix
+    tooltip: This fix makes updates to dependencies in your package .json and package-lock .json files.
+  - name: labels
+    group: fix
+    condition:
+      name: push
+      values:
+        - true
+  - name: config
+    group: advanced
+    tooltip: This setting let's you re-use repository-specific settings from a depcheck configuration file. The contents of the configuration file will be merged with the other configuration parameters of this skill as [per the rules of depcheck](https://github.com/depcheck/depcheck#usage-with-a-configuration-file).
+  - name: testGlobs
+    group: advanced
+    tooltip: This setting can be used to determine whether a dependency is a dev-only dependency or not. For example, if a dependency is only detected in your test files, it will be moved to your dev dependencies. If a missing dependency, instead, is detected in your source files, it will be added to your regular dependencies.
