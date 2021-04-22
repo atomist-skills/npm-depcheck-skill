@@ -93,7 +93,6 @@ export const Skill = skill<DepCheckConfiguration & { repos: any }>({
 			description:
 				"Enter a configuration file name to specify custom overrides.",
 			required: false,
-			visibility: ParameterVisibility.Advanced,
 		},
 		testGlobs: {
 			type: ParameterType.StringArray,
@@ -101,7 +100,6 @@ export const Skill = skill<DepCheckConfiguration & { repos: any }>({
 			description:
 				"Enter the file names in the selected repositories of your unit tests as glob expressions.",
 			required: false,
-			visibility: ParameterVisibility.Advanced,
 		},
 		push: parameter.pushStrategy({
 			displayName: "Dependency fixes",

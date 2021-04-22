@@ -39,7 +39,9 @@ parameters:
     condition:
       name: push
       values:
-        - true
+        - pr_default_commit
+        - pr_default
+        - pr
   - name: config
     group: advanced
     tooltip: This setting let's you re-use repository-specific settings from a depcheck configuration file. The contents of the configuration file will be merged with the other configuration parameters of this skill as [per the rules of depcheck](https://github.com/depcheck/depcheck#usage-with-a-configuration-file).
