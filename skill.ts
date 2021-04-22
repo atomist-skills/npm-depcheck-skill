@@ -18,7 +18,6 @@ import {
 	Category,
 	parameter,
 	ParameterType,
-	ParameterVisibility,
 	resourceProvider,
 	skill,
 } from "@atomist/skill";
