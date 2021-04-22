@@ -18,6 +18,8 @@ import {
 	childProcess,
 	EventHandler,
 	github,
+	log,
+	pluralize,
 	project,
 	repository,
 	secret,
@@ -81,7 +83,10 @@ export const onPush: EventHandler<
 
 	// Run npm install
 	let result;
-	const opts = { env: { ...process.env, NODE_ENV: "development" } };
+	const opts = {
+		env: { ...process.env, NODE_ENV: "development" },
+		level: "info" as any,
+	};
 	if (await fs.pathExists(p.path("package-lock.json"))) {
 		result = await p.spawn(
 			"npm",
@@ -119,7 +124,7 @@ export const onPush: EventHandler<
 		}
 	}
 
-	const captureLog = childProcess.captureLog();
+	const captureLog = childProcess.captureLog(log.info);
 	result = await p.spawn("depcheck", [".", ...args, "--json"], {
 		log: captureLog,
 		logCommand: false,
@@ -189,36 +194,54 @@ ${prBody.trim()}`,
 				report.dependencies?.length > 0 ||
 				report.devDependencies?.length > 0
 			)
-				await p.spawn("npm", [
-					"uninstall",
-					...(report.dependencies || []),
-					...(report.devDependencies || []),
-					"--ignore-scripts",
-					"--no-audit",
-					"--no-fund",
-				]);
+				await p.spawn(
+					"npm",
+					[
+						"uninstall",
+						...(report.dependencies || []),
+						...(report.devDependencies || []),
+						"--ignore-scripts",
+						"--no-audit",
+						"--no-fund",
+					],
+					{
+						level: "info",
+					},
+				);
 			if (missingPackages.filter(mp => !mp.isDev).length > 0) {
-				await p.spawn("npm", [
-					"install",
-					...missingPackages
-						.filter(mp => !mp.isDev)
-						.map(mp => mp.name),
-					"--ignore-scripts",
-					"--no-audit",
-					"--no-fund",
-				]);
+				await p.spawn(
+					"npm",
+					[
+						"install",
+						...missingPackages
+							.filter(mp => !mp.isDev)
+							.map(mp => mp.name),
+						"--ignore-scripts",
+						"--no-audit",
+						"--no-fund",
+					],
+					{
+						level: "info",
+					},
+				);
 			}
 			if (missingPackages.filter(mp => mp.isDev).length > 0) {
-				await p.spawn("npm", [
-					"install",
-					...missingPackages
-						.filter(mp => mp.isDev)
-						.map(mp => mp.name),
-					"--ignore-scripts",
-					"--no-audit",
-					"--no-fund",
-					"--save-dev",
-				]);
+				await p.spawn(
+					"npm",
+					[
+						"install",
+						...missingPackages
+							.filter(mp => mp.isDev)
+							.map(mp => mp.name),
+						"--ignore-scripts",
+						"--no-audit",
+						"--no-fund",
+						"--save-dev",
+					],
+					{
+						level: "info",
+					},
+				);
 			}
 			const message = `This pull request updates \`package.json\` to ${actions.join(
 				" and ",
@@ -339,9 +362,7 @@ function mapCommitMessageAndPrBody(
 	commitMessage: string;
 	prBody: string;
 } {
-	const prBody = `### ${label}${
-		dependencies.length === 1 ? "Dependency" : "Dependencies"
-	}
+	const prBody = `### ${label}${pluralize("Dependency", dependencies)}
 
 ${dependencies
 	.sort()
@@ -350,9 +371,8 @@ ${dependencies
 
 `;
 
-	const commitMessage = `${label}${
-		dependencies.length === 1 ? "Dependency" : "Dependencies"
-	}
+	const commitMessage = `${label}${pluralize("Dependency", dependencies)}
+
 ${dependencies
 	.sort()
 	.map(d => ` * ${d}`)
