@@ -50,7 +50,7 @@
     "typedoc": "npm run doc"
   },
   "dependencies": {
-    "@atomist/skill": "^0.10.1-main.14",
+    "@atomist/skill": "^0.10.1-main.20",
     "@types/fs-extra": "^9.0.11",
     "fs-extra": "^9.1.0",
     "lodash": "^4.17.21"
@@ -78,7 +78,7 @@
     "rimraf": "^3.0.2",
     "supervisor": "^0.12.0",
     "ts-node": "^9.1.1",
-    "typedoc": "^0.20.35",
+    "typedoc": "^0.20.36",
     "typescript": "^4.2.4"
   },
   "husky": {
