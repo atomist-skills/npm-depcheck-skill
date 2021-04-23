@@ -1,6 +1,6 @@
 {
   "name": "@atomist/npm-depcheck-skill",
-  "homepage": "https://github.com/atomist-skills/npm-depcheck-skill",
+  "homepage": "https://github.com/atomist-skills/npm-depcheck-skill#readme",
   "license": "Apache-2.0",
   "author": {
     "email": "oss@atomist.com",
@@ -56,6 +56,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@atomist/npm-tools": "^0.1.1-main.0",
     "@google-cloud/functions-framework": "^1.7.1",
     "@types/lodash": "^4.14.168",
     "@types/mocha": "^8.2.2",
