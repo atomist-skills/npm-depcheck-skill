@@ -132,9 +132,9 @@ export const onPush: EventHandler<
 
 	if (result.status !== 0) {
 		const report: DepCheckReport = JSON.parse(sliceReport(captureLog.log));
-		const devFiles = (
-			await project.globFiles(p, cfg.testGlobs || [])
-		).map(f => p.path(f));
+		const devFiles = (await project.globFiles(p, cfg.testGlobs || [])).map(
+			f => p.path(f),
+		);
 		const missingPackages = _.map(report.missing, (v, k) => {
 			return {
 				name: k,
