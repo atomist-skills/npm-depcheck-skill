@@ -1,5 +1,5 @@
 # Set up build
-FROM node:lts@sha256:4164d987bfceb62b17db4938d535dd31fc50d6ee0b4e00ac7a774f82af408d48 AS build
+FROM node:lts@sha256:167d0a4af6b4e0d0769086b871a36c25faed75b72705144cabbda70466cc0d8e AS build
 
 WORKDIR /usr/src
 
@@ -9,7 +9,7 @@ RUN npm ci --no-optional && \
     npm run compile && \
     rm -rf node_modules .git
 
-FROM atomist/skill:node14@sha256:ec317995ddbcdea37dd3cd9919196d3e13bb47258d21a163b87a38bd6a06fa86
+FROM atomist/skill:node14@sha256:e0359079b6e7453bc6d86f1ad8487e508b4381ff3eb4e8e55592af8d012b487e
 
 WORKDIR "/skill"
 
